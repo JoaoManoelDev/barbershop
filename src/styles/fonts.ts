@@ -7,7 +7,7 @@ export const kalam = Kalam({
 })
 
 export const roboto = Roboto({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-roboto"
 })
