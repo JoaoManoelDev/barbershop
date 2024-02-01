@@ -18,7 +18,7 @@ const RootLayout = ({
   return (
     <html
       lang="pt-br"
-      className={`${roboto.variable} ${kalam.variable}`}
+      className={`${roboto.variable} ${kalam.variable} font-roboto`}
     >
       <body className={inter.className}>{children}</body>
     </html>
