@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "@/styles/globals.css"
+import { kalam, roboto } from "@/styles/fonts"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +16,10 @@ const RootLayout = ({
   children: React.ReactNode
 }>) => {
   return (
-    <html lang="pt-br">
+    <html
+      lang="pt-br"
+      className={`${roboto.variable} ${kalam.variable}`}
+    >
       <body className={inter.className}>{children}</body>
     </html>
   )
