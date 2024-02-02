@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo"
 export const Header = () => {
   return (
     <header
-      className="container h-20 flex justify-between items-center"
+      className="h-20 flex justify-between items-center border-b lg:border-none"
     >
       <Logo />
 
