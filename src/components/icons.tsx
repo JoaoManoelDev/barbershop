@@ -4,7 +4,8 @@ import {
   Search,
   Star,
   ArrowRight,
-  ChevronLeft
+  ChevronLeft,
+  MapPin,
 } from "lucide-react"
 
 export const Icons = {
@@ -14,4 +15,5 @@ export const Icons = {
   star: Star,
   arrowRight: ArrowRight,
   chevronLeft: ChevronLeft,
+  mapPin: MapPin
 }
