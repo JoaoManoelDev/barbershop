@@ -6,6 +6,8 @@ import {
   ArrowRight,
   ChevronLeft,
   MapPin,
+  Home,
+  X
 } from "lucide-react"
 
 export const Icons = {
@@ -15,5 +17,7 @@ export const Icons = {
   star: Star,
   arrowRight: ArrowRight,
   chevronLeft: ChevronLeft,
-  mapPin: MapPin
+  mapPin: MapPin,
+  home: Home,
+  x: X
 }
