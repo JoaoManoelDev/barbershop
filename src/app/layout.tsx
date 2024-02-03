@@ -1,12 +1,11 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+
 import "@/styles/globals.css"
 import { kalam, roboto } from "@/styles/fonts"
-
-const inter = Inter({ subsets: ["latin"] })
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Barber Shop",
+  title: "Barbershop",
   description: "Sistema de barbearia",
 }
 
@@ -18,9 +17,12 @@ const RootLayout = ({
   return (
     <html
       lang="pt-br"
-      className={`${roboto.variable} ${kalam.variable} font-roboto`}
+      className={`${roboto.variable} ${kalam.variable} font-roboto dark`}
     >
-      <body className={inter.className}>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }
