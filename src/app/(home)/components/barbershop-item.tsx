@@ -1,9 +1,11 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Icons } from "@/components/icons"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface BarbershopItem {
   barbershop: {
@@ -40,7 +42,12 @@ export const BarbershopItem = ({ barbershop }: BarbershopItem) => {
         </div>
       </CardContent>
       <CardFooter className="mt-auto py-3 px-2 w-full">
-        <Button className=" w-full">Reservar</Button>
+        <Link
+          href={`/barbershop/${barbershop.id}`}
+          className={cn(buttonVariants(), "w-full")}
+        >
+          Reservar
+        </Link>
       </CardFooter>
     </Card>
   )
