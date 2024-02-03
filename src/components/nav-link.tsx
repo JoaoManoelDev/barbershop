@@ -7,7 +7,7 @@ interface NavLinkProps extends LinkProps {
   children: React.ReactNode
 }
 
-export function NavLink(props: NavLinkProps) {
+export const NavLink = (props: NavLinkProps) => {
   const pathname = usePathname()
 
   return (
