@@ -1,11 +1,13 @@
 import {
   Menu,
   Scissors,
-  Search
+  Search,
+  Star
 } from "lucide-react"
 
 export const Icons = {
   menu: Menu,
   scissors: Scissors,
-  search: Search
+  search: Search,
+  star: Star,
 }
