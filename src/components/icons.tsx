@@ -2,7 +2,8 @@ import {
   Menu,
   Scissors,
   Search,
-  Star
+  Star,
+  ArrowRight
 } from "lucide-react"
 
 export const Icons = {
@@ -10,4 +11,5 @@ export const Icons = {
   scissors: Scissors,
   search: Search,
   star: Star,
+  arrowRight: ArrowRight,
 }
