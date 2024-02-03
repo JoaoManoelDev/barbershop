@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
 import { Logo } from "@/components/logo"
+import { MobileSidebar } from "@/components/mobile-sidebar"
 
 export const Header = () => {
   return (
@@ -9,9 +8,7 @@ export const Header = () => {
     >
       <Logo />
 
-      <Button variant="outline" size="iconSm">
-        <Icons.menu className="w-5 h-5" />
-      </Button>
+      <MobileSidebar />
     </header>
   )
 }
