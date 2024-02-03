@@ -18,7 +18,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
   return (
     <Card>
       <CardContent className="flex items-center p-3 gap-4">
-        <div className="min-w-24 min-h-24 max-w-24 max-h-24">
+        <div className="min-w-28 min-h-28 max-w-28 max-h-28">
           <Image
             src={service.imageUrl}
             width={0}
@@ -30,7 +30,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
           />
         </div>
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-3">
           <h2 className="font-bold text-sm">{service.name}</h2>
           <p className="text-sm text-muted-foreground">{service.description}</p>
 
