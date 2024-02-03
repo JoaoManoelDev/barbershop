@@ -3,7 +3,8 @@ import {
   Scissors,
   Search,
   Star,
-  ArrowRight
+  ArrowRight,
+  ChevronLeft
 } from "lucide-react"
 
 export const Icons = {
@@ -12,4 +13,5 @@ export const Icons = {
   search: Search,
   star: Star,
   arrowRight: ArrowRight,
+  chevronLeft: ChevronLeft,
 }
