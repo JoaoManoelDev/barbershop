@@ -109,12 +109,16 @@ async function seedDatabase() {
         },
       })
 
+
+
       for (const service of services) {
+        const priceInCents = service.price * 100
+
         await prisma.service.create({
           data: {
             name: service.name,
             description: service.description,
-            price: service.price,
+            price: priceInCents,
             barbershop: {
               connect: {
                 id: barbershop.id,
