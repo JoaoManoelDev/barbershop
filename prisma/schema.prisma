@@ -9,12 +9,46 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(uuid())
-  name String
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
 
-  Bookings Booking[]
+  bookings Booking[]
+  account  Account[]
 
   @@map("user")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model verificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+  @@map("verification_tokens")
 }
 
 model Barbershop {
@@ -24,7 +58,7 @@ model Barbershop {
   image_url String
 
   services Service[]
-  Bookings Booking[]
+  bookings Booking[]
 
   @@map("barbershop")
 }
@@ -32,13 +66,13 @@ model Barbershop {
 model Service {
   id            String     @id @default(uuid())
   name          String
-  price         Decimal    @db.Decimal(10, 2)
+  price         Int
   description   String
   image_url     String
   barbershop_id String
   barbershop    Barbershop @relation(fields: [barbershop_id], references: [id])
 
-  Bookings Booking[]
+  bookings Booking[]
 
   @@map("service")
 }
