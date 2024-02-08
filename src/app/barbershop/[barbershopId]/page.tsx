@@ -12,12 +12,15 @@ interface BarbershopDetailsPageProps {
 const BarbershopDetailsPage = async ({
   params
 }: BarbershopDetailsPageProps) => {
-  const barbershop = await getBarbershopById({
-    barbershopId: params.barbershopId,
-    includeServices: true
-  })
+  const barbershop = await getBarbershopById(params.barbershopId)
 
-  console.log("Barbershop", barbershop)
+  if (!barbershop) {
+    return (
+      <div className="p-5">
+        <p>Informações não disponíveis</p>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4 max-w-6xl mx-auto mb-16">

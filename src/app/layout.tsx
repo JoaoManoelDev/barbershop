@@ -21,7 +21,6 @@ const RootLayout = ({
     >
       <body>
         {children}
-        <Footer />
       </body>
     </html>
   )

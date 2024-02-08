@@ -9,14 +9,14 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
+  id            String    @id @default(cuid())
   name          String
   email         String    @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
 
   bookings Booking[]
-  account  Account[]
+  accounts Account[]
 
   @@map("user")
 }
@@ -52,7 +52,7 @@ model verificationToken {
 }
 
 model Barbershop {
-  id        String @id @default(uuid())
+  id        String @id @default(cuid())
   name      String
   address   String
   image_url String
@@ -78,7 +78,7 @@ model Service {
 }
 
 model Booking {
-  id            String     @id @default(uuid())
+  id            String     @id @default(cuid())
   user_id       String
   user          User       @relation(fields: [user_id], references: [id])
   service_id    String

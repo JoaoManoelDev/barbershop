@@ -11,6 +11,7 @@ import { Icons } from "@/components/icons"
 import { NavLink } from "@/components/nav-link"
 import { Separator } from "@/components/ui/separator"
 import { routes } from "@/constants/route"
+import { ProfileInfo } from "@/components/profile-info"
 
 export const MobileSidebar = () => {
   return (
@@ -28,6 +29,8 @@ export const MobileSidebar = () => {
           </SheetHeader>
 
           <Separator />
+
+          <ProfileInfo />
 
           <div className="space-y-2 leading-none mt-8 px-5">
             {routes.map(route => (
