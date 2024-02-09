@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Booking } from "./booking"
 
 interface ServiceItemProps {
   service: {
@@ -10,8 +10,8 @@ interface ServiceItemProps {
     price: number
     description: string
     imageUrl: string
-    barbershop_id: string
-  }
+    barbershopName: string
+  },
 }
 
 export const ServiceItem = ({ service }: ServiceItemProps) => {
@@ -36,7 +36,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
 
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">R$ {service.price}</span>
-            <Button size="sm" variant="secondary">Agendar</Button>
+            <Booking service={service} />
           </div>
         </div>
       </CardContent>
