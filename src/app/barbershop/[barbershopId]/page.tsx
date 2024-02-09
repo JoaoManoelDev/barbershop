@@ -32,7 +32,8 @@ const BarbershopDetailsPage = async ({
         {barbershop.services.map(service => (
           <ServiceItem key={service.id} service={{
             ...service,
-            imageUrl: service.image_url
+            imageUrl: service.image_url,
+            barbershopName: barbershop.name
           }} />
         ))}
       </section>
