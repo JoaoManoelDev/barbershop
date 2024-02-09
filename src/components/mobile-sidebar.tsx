@@ -1,3 +1,6 @@
+import * as React from "react"
+import { VariantProps } from "class-variance-authority"
+
 import {
   Sheet,
   SheetClose,
@@ -6,23 +9,31 @@ import {
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { NavLink } from "@/components/nav-link"
 import { Separator } from "@/components/ui/separator"
 import { routes } from "@/constants/route"
 import { ProfileInfo } from "@/components/profile-info"
+import { cn } from "@/lib/utils"
 
-export const MobileSidebar = () => {
+interface MobileSidebarProps extends React.HtmlHTMLAttributes<HTMLDivElement>,
+  VariantProps<typeof buttonVariants> {}
+
+export const MobileSidebar = ({ className, variant, size }: MobileSidebarProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden">
+        <Button
+          className={cn("lg:hidden", className)}
+          variant={variant}
+          size={size}
+        >
           <Icons.menu />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="p-0">
+      <SheetContent side="right" className="p-0">
         <div className="h-full">
           <SheetHeader className="text-left p-5">
             <SheetTitle className="text-2xl">Menu</SheetTitle>
