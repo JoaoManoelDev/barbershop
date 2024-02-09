@@ -3,7 +3,8 @@ import Link from "next/link"
 
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
+import { MobileSidebar } from "@/components/mobile-sidebar"
 
 interface HeaderProps {
   barbershop: {
@@ -20,13 +21,17 @@ export const BarberInfo = ({ barbershop }: HeaderProps) => {
       <div className="h-60 relative">
         <Link
           href="/"
-          className={cn(buttonVariants({ variant: "outline", size: "icon" }), "absolute top-4 left-4 z-50")}
+          className={cn(buttonVariants({ variant: "outline", size: "icon" }), "absolute top-4 left-4 z-50" )}
         >
           <Icons.chevronLeft />
         </Link>
-        <Button variant="outline" size="icon" className="absolute top-4 right-4 z-50">
-          <Icons.menu />
-        </Button>
+
+        <MobileSidebar
+          className="absolute top-4 right-4 z-50"
+          size="icon"
+          variant="outline"
+        />
+
         <Image
           src={barbershop.imageUrl}
           width={0}
