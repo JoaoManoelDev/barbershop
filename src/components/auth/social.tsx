@@ -5,11 +5,15 @@ import { signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
+import { useSearchParams } from "next/navigation"
 
 export const Social = () => {
+  const searchParams = useSearchParams().get("callbackUrl")
+
   const onClick = (provider: "google") => {
     signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      callbackUrl: searchParams || DEFAULT_LOGIN_REDIRECT,
+      redirect: true
     })
   }
 
