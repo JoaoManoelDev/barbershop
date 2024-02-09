@@ -8,7 +8,7 @@ export const Header = () => {
     >
       <Logo />
 
-      <MobileSidebar />
+      <MobileSidebar size="icon" variant="outline" />
     </header>
   )
 }
