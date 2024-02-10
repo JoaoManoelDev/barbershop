@@ -11,6 +11,7 @@ interface ServiceItemProps {
     description: string
     imageUrl: string
     barbershopName: string
+    barbershopId: string
   },
 }
 
