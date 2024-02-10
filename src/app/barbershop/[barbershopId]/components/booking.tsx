@@ -1,7 +1,11 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { ptBR } from "date-fns/locale"
+import { setHours, setMinutes } from "date-fns"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,8 +19,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Calendar } from "@/components/ui/calendar"
 import { Icons } from "@/components/icons"
-import { generateDayTimeList } from "../helpers/hours"
+import { getDayBookings, saveBooking } from "@/actions/booking"
 import { dateDayAndMonthFormatter, priceFormatter } from "@/lib/formatters"
+import { generateDayTimeList } from "../helpers/hours"
 
 interface BookingItemProps {
   service: {
@@ -26,12 +31,71 @@ interface BookingItemProps {
     description: string
     imageUrl: string
     barbershopName: string
+    barbershopId: string
   }
+}
+
+interface Booking {
+  id: string
+  user_id: string
+  service_id: string
+  date: Date
+  barbershop_id: string
 }
 
 export const Booking = ({ service }: BookingItemProps) => {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [hour, setHour] = useState<string | undefined>()
+  const [submitIsLoading, setSubmitIsLoading] = useState(false)
+  const [sheetIsOpen, setSheetIsOpen] = useState(false)
+  const [dayBookings, setDayBookings] = useState<Booking[]>([])
+  const router = useRouter()
+  const { data } = useSession() 
+
+  useEffect(() => {
+    if (!date) return
+
+    const refreshAvailableHours = async () => {
+      const allDayBookings = await getDayBookings(date, service.barbershopId)
+      setDayBookings(allDayBookings)
+    }
+
+    refreshAvailableHours()
+  }, [date])
+
+  const handleSubmitBooking = async () => {
+    if (!date || !hour || !data) return
+
+    try {
+      setSubmitIsLoading(true)
+      const dateHour = Number(hour.split(":")[0])
+      const dateMinutes = Number(hour.split(":")[1])
+
+      const formattedDate = setMinutes(setHours(date, dateHour), dateMinutes)
+
+      await saveBooking({
+        barbershopId: service.barbershopId,
+        serviceId: service.id,
+        date: formattedDate,
+        userId: data?.user.id,
+      })
+
+      setSheetIsOpen(false)
+      setDate(undefined)
+      setHour(undefined)
+      toast.success("Reserva realizada com sucesso.", {
+        description: `${dateDayAndMonthFormatter(formattedDate)}`,
+        action: {
+          label: "Visualizar",
+          onClick: () => router.push("/bookings")
+        }
+      })
+    } catch {
+      toast.error("Algo deu errado, tente novamente mais tarde.")
+    } finally {
+      setSubmitIsLoading(false)
+    }
+  }
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date)
@@ -39,13 +103,29 @@ export const Booking = ({ service }: BookingItemProps) => {
   }
 
   const handleHourClick = (time: string) => setHour(time)
-  
+
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : []
-  }, [date])
+    if (!date) return []
+
+    return generateDayTimeList(date).filter((time) => {
+      const timeHour = Number(time.split(":")[0])
+      const timeMinutes = Number(time.split(":")[1])
+
+      const booking = dayBookings.find((booking) => {
+        const bookingHour = booking.date.getHours()
+        const bookingMinutes = booking.date.getMinutes()
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes
+      })
+
+      if (!booking) return true
+
+      return false
+    })
+  }, [date, dayBookings])
 
   return (
-    <Sheet>
+    <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
       <SheetTrigger asChild>
         <Button size="sm" variant="secondary">Agendar</Button>
       </SheetTrigger>
@@ -125,8 +205,17 @@ export const Booking = ({ service }: BookingItemProps) => {
               </Card>
 
               <div>
-                <Button className="w-full">
-                  Confirmar reserva
+                <Button
+                  className="w-full"
+                  onClick={handleSubmitBooking}
+                  disabled={submitIsLoading}
+                >
+                  {submitIsLoading ? (
+                    <>
+                      <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+                      <span>Confirmando...</span>
+                    </>
+                  ) : "Confirmar reserva"}
                 </Button>
               </div>
             </div>
