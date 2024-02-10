@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import "@/styles/globals.css"
 import { kalam, roboto } from "@/styles/fonts"
-import { Footer } from "@/components/footer"
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   title: "Barbershop",
@@ -21,6 +21,7 @@ const RootLayout = ({
     >
       <body>
         {children}
+        <Toaster />
       </body>
     </html>
   )
