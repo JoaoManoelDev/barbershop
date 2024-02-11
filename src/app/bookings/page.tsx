@@ -2,7 +2,8 @@ import { Header } from "@/components/header"
 import { BookingItem } from "@/components/booking-item"
 import { auth } from "@/auth"
 import {
-  getBookingsByUserIdWithBarbershopAndService
+  getBookingsByUserIdWithBarbershopAndService,
+  type BookingWithServiceAndBarbershop
 } from "@/actions/booking"
 import { dateIsFuture, dateIsPast } from "@/lib/formatters"
 
@@ -11,8 +12,13 @@ const BookingsPage = async () => {
 
   const bookings = await getBookingsByUserIdWithBarbershopAndService(session?.user.id!)
 
-  const confirmedBookings = bookings.filter(booking => dateIsFuture(booking.date))
-  const finishedBookings = bookings.filter(booking => dateIsPast(booking.date))
+  const confirmedBookings: BookingWithServiceAndBarbershop[] = []
+  const finishedBookings: BookingWithServiceAndBarbershop[] = []
+  
+  bookings.forEach(booking => {
+    if (dateIsFuture(booking.date)) confirmedBookings.push(booking)
+    else if (dateIsPast(booking.date)) finishedBookings.push(booking)
+  })
 
   return (
     <div className="max-w-6xl mx-auto container mb-16">
