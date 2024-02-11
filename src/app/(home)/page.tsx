@@ -39,6 +39,8 @@ const Home = async () => {
                 <BookingItem booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
+                  bookingDate: booking.date,
+                  barbershopImageUrl: booking.barbershop.image_url
                 }} />
               ))
             ) : (
