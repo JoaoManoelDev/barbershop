@@ -4,6 +4,37 @@ import { endOfDay, startOfDay } from "date-fns"
 
 import { db } from "@/lib/db"
 
+export interface BookingWithServiceAndBarbershop {
+  id: string
+  user_id: string
+  service_id: string
+  date: Date
+  barbershop_id: string
+
+  service: {
+    id: string
+    name: string
+    price: number
+    description: string
+    image_url: string
+    barbershop_id: string
+  }
+
+  barbershop: {
+    id: string
+    name: string
+    address: string
+    image_url: string
+  }
+}
+
+interface saveBookingProps {
+  barbershopId: string
+  serviceId: string
+  userId: string
+  date: Date
+}
+
 export const getBookingsByUserIdWithBarbershopAndService = async (userId: string) => {
   const bookings = await db.booking.findMany({
     where: {
@@ -34,13 +65,6 @@ export const getDayBookings = async (date: Date, barbershopId: string) => {
   return bookings
 }
 
-interface saveBookingProps {
-  barbershopId: string
-  serviceId: string
-  userId: string
-  date: Date
-}
-
 export const saveBooking = async ({
   barbershopId,
   serviceId,
@@ -52,7 +76,7 @@ export const saveBooking = async ({
       barbershop_id: barbershopId,
       service_id: serviceId,
       user_id: userId,
-      date      
+      date
     }
   })
 }
