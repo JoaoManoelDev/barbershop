@@ -8,16 +8,19 @@ import { Icons } from "@/components/icons"
 import { getAllBarbershops } from "@/actions/barbershop"
 import { getBookingsByUserIdWithBarbershopAndService } from "@/actions/booking"
 import { auth } from "@/auth"
+import { dateIsFuture } from "@/lib/formatters"
 
 const Home = async () => {
-  const [session, barbershops] = await Promise.all([
-    await auth(),
-    await getAllBarbershops()
+  const session = await auth()
+
+  const [barbershops, bookings] = await Promise.all([
+    await getAllBarbershops(),
+    session
+      ? await getBookingsByUserIdWithBarbershopAndService(session?.user.id)
+      : Promise.resolve([])
   ])
 
-  const bookings = await getBookingsByUserIdWithBarbershopAndService(
-    session?.user.id!
-  )
+  const confirmedBookings = bookings.filter(booking => dateIsFuture(booking.date))
 
   return (
     <div className="max-w-6xl mx-auto container mb-16">
@@ -29,13 +32,16 @@ const Home = async () => {
         <SearchBarber />
 
         <div className="gap-2">
-          <p className="text-xs uppercase font-bold text-muted-foreground mb-3">
-            Agendamentos
-          </p>
+          <div className="flex gap-2 items-center mb-3">
+            <p className="text-xs uppercase font-bold text-muted-foreground ">
+              Agendamentos
+            </p>
+            <Icons.arrowRight className="w-4 h-4" />
+          </div>
 
-          <div className="flex flex-col gap-2">
-            {bookings.length >= 1 ? (
-              bookings.map(booking => (
+          <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            {confirmedBookings.length >= 1 ? (
+              confirmedBookings.map(booking => (
                 <BookingItem booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
@@ -51,7 +57,7 @@ const Home = async () => {
 
         <div>
           <div className="flex gap-2 items-center mb-3">
-            <p className="text-xs uppercase font-bold text-muted-foreground ">
+            <p className="text-xs uppercase font-bold text-muted-foreground" >
               Recomendados
             </p>
             <Icons.arrowRight className="w-4 h-4" />
