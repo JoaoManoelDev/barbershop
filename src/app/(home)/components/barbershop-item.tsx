@@ -44,7 +44,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItem) => {
       <CardFooter className="mt-auto py-3 px-2 w-full">
         <Link
           href={`/barbershop/${barbershop.id}`}
-          className={cn(buttonVariants(), "w-full")}
+          className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
         >
           Reservar
         </Link>
