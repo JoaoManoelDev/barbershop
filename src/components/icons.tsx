@@ -13,7 +13,8 @@ import {
   UserCircle,
   AlertTriangle,
   ArrowUp,
-  Loader2
+  Loader2,
+  Calendar
 } from "lucide-react"
 
 type IconProps = React.HTMLAttributes<SVGElement>
@@ -41,5 +42,6 @@ export const Icons = {
   logIn: LogIn,
   userCircle: UserCircle,
   alertTriangle: AlertTriangle,
-  loader: Loader2
+  loader: Loader2,
+  calendar: Calendar
 }
