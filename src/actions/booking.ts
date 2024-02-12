@@ -3,6 +3,7 @@
 import { endOfDay, startOfDay } from "date-fns"
 
 import { db } from "@/lib/db"
+import { revalidatePath } from "next/cache"
 
 export interface BookingWithServiceAndBarbershop {
   id: string
@@ -79,4 +80,18 @@ export const saveBooking = async ({
       date
     }
   })
+
+  revalidatePath("/bookings")
+  revalidatePath("/")
+}
+
+export const cancelBooking = async (bookingId: string) => {
+  await db.booking.delete({
+    where: {
+      id: bookingId
+    }
+  })
+
+  revalidatePath("/bookings")
+  revalidatePath("/")
 }
