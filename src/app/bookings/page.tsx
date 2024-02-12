@@ -38,8 +38,11 @@ const BookingsPage = async () => {
                 <BookingItem booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
+                  servicePrice: booking.service.price,
                   bookingDate: booking.date,
-                  barbershopImageUrl: booking.barbershop.image_url
+                  bookingId: booking.id,
+                  barbershopImageUrl: booking.barbershop.image_url,
+                  barbershopAddress: booking.barbershop.address
                 }} />
               ))
             ) : (
@@ -59,8 +62,11 @@ const BookingsPage = async () => {
                 <BookingItem booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
+                  servicePrice: booking.service.price,
                   bookingDate: booking.date,
-                  barbershopImageUrl: booking.barbershop.image_url
+                  bookingId: booking.id,
+                  barbershopImageUrl: booking.barbershop.image_url,
+                  barbershopAddress: booking.barbershop.address,
                 }} />
               ))
             ) : (
