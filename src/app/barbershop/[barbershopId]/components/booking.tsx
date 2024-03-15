@@ -61,7 +61,7 @@ export const Booking = ({ service }: BookingItemProps) => {
     }
 
     refreshAvailableHours()
-  }, [date])
+  }, [date, service])
 
   const handleSubmitBooking = async () => {
     if (!date || !hour || !data) return
