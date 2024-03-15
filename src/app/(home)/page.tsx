@@ -4,6 +4,13 @@ import { BarbershopItem } from "./components/barbershop-item"
 import { Header } from "@/components/header"
 import { BookingItem } from "@/components/booking-item"
 import { Icons } from "@/components/icons"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "@/components/ui/carousel"
 
 import { getAllBarbershops } from "@/actions/barbershop"
 import { getBookingsByUserIdWithBarbershopAndService } from "@/actions/booking"
@@ -23,7 +30,7 @@ const Home = async () => {
   const confirmedBookings = bookings.filter(booking => dateIsFuture(booking.date))
 
   return (
-    <div className="max-w-6xl mx-auto container mb-16">
+    <div className="max-w-6xl mx-auto container mb-4">
       <Header />
 
       <div className="space-y-6 py-5 ">
@@ -66,21 +73,25 @@ const Home = async () => {
             <Icons.arrowRight className="w-4 h-4" />
           </div>
 
-          <div
-            className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden"
-          >
-            {barbershops?.map((barbershop) => {
-              return (
-                <BarbershopItem
-                  key={barbershop.id}
-                  barbershop={{
-                    ...barbershop,
-                    imageUrl: barbershop.image_url
-                  }}
-                />
-              )
-            })}
-          </div>
+          <Carousel>
+            <CarouselContent className="gap-4">
+              {barbershops?.map((barbershop) => (
+                 <CarouselItem key={barbershop.id} className="min-w-[192px] max-w-[192px]">
+
+                  <BarbershopItem
+                    key={barbershop.id}
+                    barbershop={{
+                      ...barbershop,
+                      imageUrl: barbershop.image_url
+                    }}
+                  />
+                
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden xl:flex" />
+            <CarouselNext className="hidden xl:flex" />
+          </Carousel>
         </div>
 
         <div>
@@ -91,21 +102,26 @@ const Home = async () => {
             <Icons.arrowRight className="w-4 h-4" />
           </div>
 
-          <div
-            className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden"
-          >
-            {barbershops?.map((barbershop) => {
-              return (
-                <BarbershopItem
+          <Carousel>
+            <CarouselContent className="gap-4">
+              {barbershops?.map((barbershop) => (
+                 <CarouselItem
                   key={barbershop.id}
-                  barbershop={{
-                    ...barbershop,
-                    imageUrl: barbershop.image_url
-                  }}
-                />
-              )
-            })}
-          </div>
+                  className="min-w-[192px] max-w-[192px]"
+                >
+                  <BarbershopItem
+                    key={barbershop.id}
+                    barbershop={{
+                      ...barbershop,
+                      imageUrl: barbershop.image_url
+                    }}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden xl:flex" />
+            <CarouselNext className="hidden xl:flex" /> 
+          </Carousel>
         </div>
       </div>
     </div>
