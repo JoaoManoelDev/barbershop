@@ -34,6 +34,8 @@ const BarbershopPage = async ({
     <div className="max-w-6xl mx-auto container mb-4">
       <Header />
 
+      <h1>Resultados para {`"${searchParams.search}"`}</h1>
+
       <div className="grid grid-cols-2 gap-3 mt-4">
         {barbershops.map(barbershop => (
           <Card className="rounded-xl flex flex-col justify-between items-center">
