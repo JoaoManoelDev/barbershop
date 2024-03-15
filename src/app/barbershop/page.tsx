@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation"
 
 import { Header } from "@/components/header"
-import { BarbershopItem } from "@/app/(home)/components/barbershop-item"
 import { db } from "@/lib/db"
+import { BarbershopItem } from "@/app/(home)/components/barbershop-item"
 
 interface BarbershopProps {
   searchParams: {
@@ -35,7 +35,7 @@ const BarbershopPage = async ({
         <span className="font-bold">{`"${searchParams.search}"`}</span>
       </h1>
 
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex justify-center gap-4 flex-wrap">
         {barbershops.map(barbershop => (
           <BarbershopItem
           key={barbershop.id}
