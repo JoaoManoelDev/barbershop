@@ -31,7 +31,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
           />
         </div>
 
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 w-full">
           <h2 className="font-bold text-sm">{service.name}</h2>
           <p className="text-sm text-muted-foreground">{service.description}</p>
 
