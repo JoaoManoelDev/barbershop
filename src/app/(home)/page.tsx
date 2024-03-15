@@ -49,7 +49,7 @@ const Home = async () => {
           <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
             {confirmedBookings.length >= 1 ? (
               confirmedBookings.map(booking => (
-                <BookingItem booking={{
+                <BookingItem key={booking.id} booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
                   servicePrice: booking.service.price,

@@ -35,7 +35,7 @@ const BookingsPage = async () => {
           <div className="flex flex-col gap-2">
             {confirmedBookings.length >= 1 ? (
               confirmedBookings.map(booking => (
-                <BookingItem booking={{
+                <BookingItem key={booking.id} booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
                   servicePrice: booking.service.price,
@@ -59,7 +59,7 @@ const BookingsPage = async () => {
           <div className="flex flex-col gap-2">
             {finishedBookings.length >= 1 ? (
               finishedBookings.map(booking => (
-                <BookingItem booking={{
+                <BookingItem key={booking.id} booking={{
                   barbershopName: booking.barbershop.name,
                   serviceName: booking.service.name,
                   servicePrice: booking.service.price,
